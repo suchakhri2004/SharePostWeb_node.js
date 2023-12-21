@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> baseHead customTitle=customTitle }}
+<body>
+  {{> siteHeader }}
+  <section class="section">
+    <div class="container">
+      {{#if onePost}}
+        <div class="box" style="background-color: rgb(252, 223, 228);">
+          <h4>{{ onePost.title }}</h4>
+          <p>
+            <b>{{ onePost.from }}</b>
+            <span class="text-gray"> | {{ onePost.createdAtText }}</span>
+          </p>
+          <div>{{ onePost.content }}</div>
+        </div>
+        <hr>
+        <form action="/p/{{ onePost.id }}/comment" method="post">
+          <p>
+            <textarea name="content" placeholder="แสดงความคิดเห็น" rows="3">{{ commentValues.content }}</textarea>
+          </p>
+          <p>
+            <input type="text" name="from" placeholder="จากคุณ" value="{{ commentValues.from }}">
+          </p>
+          <p>
+            <input id="input-accepted" type="checkbox" name="accepted">
+            <label for="input-accepted"> ติ๊กๆไปเถอะครับแค่อยากลองทำแบบมีติ๊กถูก</label>
+          </p>
+          <p>
+            <button class="button" type="submit">คอมเม้นท์</button>
+          </p>
+          {{#if errorMessage }}
+            <p>*** {{ errorMessage }}</p>
+          {{/if}}
+        </form>
+        <hr>
+        {{#if postComments}}
+          <h5>{{ postComments.length }} คอมเม้นท์</h5>
+        {{else}}
+          <h5>ยังไม่มีคอมเม้นท์</h5>
+        {{/if}}
+        {{#each postComments}}
+          <div class="box" style="background-color: rgb(215, 250, 239);">
+            <p>
+              <b>{{ this.from }}</b>
+              <span class="text-gray"> | {{ this.createdAtText }}</span>
+            </p>
+            <div>{{ this.content }}</div>
+          </div>
+        {{/each}}
+      {{else}}
+        <p>ไม่พบโพสต์ที่คุณต้องการ</p>
+      {{/if}}
+    </div>
+  </section>
+  {{> siteFooter }}
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> baseHead }}
+<body>
+  {{> siteHeader }}
+  <section class="section">
+    <div class="container">
+      <h3>พูดคุยสอบถามกันได้ตามสบายเลยครับ</h3>
+      <p class="mg-bt-l">กรุณาพูดคุยกันอย่างสุภาพนะครับ</p>
+      {{#each allPosts}}
+        <div class="box" style="background-color: rgb(194, 248, 248);">
+          <h5><a href="/p/{{ this.id }}">{{ this.title }}</a></h5>
+          <p>
+            <b>{{ this.from }}</b>
+            <span class="text-gray"> | {{ this.createdAtText }}</span>
+          </p>
+          {{#if this.commentsCount}}
+            <div>{{ this.commentsCount }} คอมเม้นท์</div>
+          {{else}}
+            <div>ยังไม่มีคอมเม้นท์</div>
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </section>
+  {{> siteFooter }}
+</body>
+</html>
